@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
     public bool dodging = false; [Tooltip("Don't touch")]
     public float dashTime;
     private Vector3 dashLocation;
+    // CHANGED
+    public float dashCooldown = 3f;
     [Header("")]
     [Header("Health")]
     public int healthMax = 8;
@@ -134,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
     {
 
         RaycastHit hit;
-        if (context.phase.ToString() == "Started" && !dodging)
+        if (context.phase.ToString() == "Started" && !dodging && Time.time >= dashCooldown) // ADDED
         {
             float dashDistance = distance;
             playerControl.Move(new Vector3());
@@ -160,6 +162,10 @@ public class PlayerMovement : MonoBehaviour
             dashLocation = transform.position + transform.forward * dashDistance;
             dodging = true;
             GetComponent<PlayerGun>().LaserEnd();
+
+            // ADDED reset the cooldown
+            dashCooldown = Time.time + dashCooldown;
+
         }
 
     }
