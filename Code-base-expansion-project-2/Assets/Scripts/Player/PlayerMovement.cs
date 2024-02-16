@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 dashLocation;
     // CHANGED
     public float dashCooldown = 3f;
+    public float dashCooldownDuration = 1;
     [Header("")]
     [Header("Health")]
     public int healthMax = 8;
@@ -164,7 +165,7 @@ public class PlayerMovement : MonoBehaviour
             GetComponent<PlayerGun>().LaserEnd();
 
             // ADDED reset the cooldown
-            dashCooldown = Time.time + dashCooldown;
+            dashCooldown = Time.time + dashCooldownDuration;
 
         }
 
