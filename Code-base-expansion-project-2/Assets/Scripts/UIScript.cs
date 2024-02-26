@@ -54,7 +54,7 @@ public class UIScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       Cursor.visible = false;
+     //  Cursor.visible = false;
        Cursor.lockState = CursorLockMode.Confined;
        Time.timeScale = 1;
     }
@@ -90,7 +90,7 @@ public class UIScript : MonoBehaviour
         else // unpauses the game
         {
             Time.timeScale = 1;
-            Cursor.visible = false;
+          //  Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Confined;
         }
     }
