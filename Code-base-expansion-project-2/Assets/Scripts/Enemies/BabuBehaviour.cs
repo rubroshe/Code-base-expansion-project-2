@@ -215,15 +215,42 @@ public class BabuBehaviour : MonoBehaviour
     {
         if ((LayerMask.NameToLayer("BulletKiller") == other.gameObject.layer || LayerMask.NameToLayer("Player Bullets") == other.gameObject.layer) && state != States.Empty && state != States.Die)
         {
-            if(other.gameObject.layer == LayerMask.NameToLayer("Player Bullets"))
-            {
-                hp-=other.gameObject.GetComponent<PlayerBullet>().damage;
-            }
-            if (hp <= 0)
-            {
-                state = States.Die;
-            }
-            Destroy(other.gameObject);
+            TakeDamage(other);
         }
     }
+
+
+    public void TakeDamage(Collision other) // ADDED by RB
+    {
+
+
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player Bullets"))
+        {
+            hp -= other.gameObject.GetComponent<PlayerBullet>().damage;
+        }
+        if (hp <= 0)
+        {
+            state = States.Die;
+        }
+        Destroy(other.gameObject);
+    }
+
+
+    public void TakeExplosionDamage(int damage)
+    {
+        hp -= damage;
+        if (hp <= 0)
+        {
+            Die(); // Implement this method based on your game's logic
+        }
+    }
+
+
+    void Die()
+    {
+        // Handle the enemy's death here (e.g., play animation, destroy object)
+        Destroy(gameObject); // Example action
+    }
+
+
 }

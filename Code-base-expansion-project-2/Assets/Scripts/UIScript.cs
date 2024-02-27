@@ -54,6 +54,8 @@ public class UIScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // OMITTED BY RB
+        // Comment this out and use custom crosshair 
      //  Cursor.visible = false;
        Cursor.lockState = CursorLockMode.Confined;
        Time.timeScale = 1;

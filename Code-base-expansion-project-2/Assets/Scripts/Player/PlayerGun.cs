@@ -50,6 +50,15 @@ public class PlayerGun : MonoBehaviour
     public float shotgunFireRate;[Tooltip("Fires 1 shot every x Second(s)")]
     public bool chainsawing = false;
 
+    // ADDED RB
+    [Header("")]
+    [Header("Grenade Info")]
+    public GameObject grenadePrefab;
+    public float throwForce = 20f;
+    public float grenadeAngle = 20f; // in Degrees
+    public int grenadeCount = 3; // starting grenade amount 
+    public float grenadeDamage = 50f; 
+
     [Header("")]
     [Header("References")]
     public Transform firePoint; [Tooltip("Location for bullets to begin")]
@@ -192,7 +201,22 @@ public class PlayerGun : MonoBehaviour
         }
         else
             diviation = 0;
+
+        if (Input.GetKeyDown(KeyCode.G) && grenadeCount > 0)
+        {
+            ThrowNade();
+            grenadeCount--;
+        }
     }
+
+    public void ThrowNade()
+    {
+        GameObject grenade = Instantiate(grenadePrefab, transform.position + transform.forward, transform.rotation);
+        Rigidbody rb = grenade.GetComponent<Rigidbody>();
+        Vector3 throwDirection = Quaternion.AngleAxis(-grenadeAngle, transform.right) * transform.forward;
+        rb.AddForce(throwDirection * throwForce, ForceMode.Impulse);
+    }
+
 
     private void FixedUpdate()
     {
